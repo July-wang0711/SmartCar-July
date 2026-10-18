@@ -11,17 +11,6 @@ def load_config(config_path):
     except FileNotFoundError:
         print("Config file not found.")
         return None
-    
-cfg = load_config("config.yaml")
-
-#CONFIG_PATH = "config.yaml"
-#with open(CONFIG_PATH) as f:
-#cfg = yaml.safe_load(f)
-
-#从读取到的配置字典（cfg）中，提取出后续程序需要的具体参数（文件名和列名）
-csv_path = cfg["input_csv"]
-col_x = cfg["columns"]["x"]
-col_y = cfg["columns"]["y"]
 
 #定义函数load_data()，用于加载数据文件
 def load_data(csv_path, col_x, col_y):
@@ -36,16 +25,11 @@ def load_data(csv_path, col_x, col_y):
             except ValueError:
                 print("Data error in row:", row)
     return xs, ys
-xs, ys = load_data(csv_path, col_x, col_y)
+
 
 def mean(data):
     mean = sum(data) / len(data)
     return mean
-n = len(xs)
-sum_x = sum(xs)
-sum_y = sum(ys)
-mean_x = mean(xs)
-mean_y = mean(ys)
 
 #定义函数calculate_corr()，用于计算皮尔逊相关系数
 def calculate_corr(xs, ys):
@@ -64,8 +48,20 @@ def calculate_corr(xs, ys):
     denom = math.sqrt(dx * dy)
     r = prod / denom if denom != 0 else 0
     return r
-r = calculate_corr(xs, ys)
 
+cfg = load_config("config.yaml")
+#从读取到的配置字典（cfg）中，提取出后续程序需要的具体参数（文件名和列名）
+csv_path = cfg["input_csv"]
+col_x = cfg["columns"]["x"]
+col_y = cfg["columns"]["y"]
+xs, ys = load_data(csv_path, col_x, col_y)
+r = calculate_corr(xs, ys)
+n = len(xs)
+xs, ys = load_data(csv_path, col_x, col_y)
+sum_x = sum(xs)
+sum_y = sum(ys)
+mean_x = mean(xs)
+mean_y = mean(ys)
 if __name__ == "__main__":
     # 下面的代码只在直接运行此文件时执行
     my_config = load_config("config.yaml")
