@@ -1,6 +1,6 @@
- import yaml
-import csv
-import math
+import yaml  #引入配置
+import csv   #引入数据文件
+import math  #引入数学库
 
 CONFIG_PATH = "config.yaml"
 
@@ -40,8 +40,9 @@ for i in range(n):
     dx = dx + a * a
     dy = dy + b * b
     prod = prod + a * b
-
-denom = dx * dy
+    
+#求r的公式里要开平方，此处修改
+denom = math.sqrt(dx * dy)  
 r = prod / denom
 
 print("n =", n)
