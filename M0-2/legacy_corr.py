@@ -32,7 +32,9 @@ def mean(data):
     return mean
 
 #定义函数calculate_corr()，用于计算皮尔逊相关系数
+
 def calculate_corr(xs, ys):
+    n = len(xs)
     mean_x = mean(xs)
     mean_y = mean(ys)
     dx = 0.0
@@ -56,8 +58,9 @@ col_x = cfg["columns"]["x"]
 col_y = cfg["columns"]["y"]
 xs, ys = load_data(csv_path, col_x, col_y)
 r = calculate_corr(xs, ys)
-n = len(xs)
+
 xs, ys = load_data(csv_path, col_x, col_y)
+#n = len(xs)
 sum_x = sum(xs)
 sum_y = sum(ys)
 mean_x = mean(xs)
@@ -70,7 +73,7 @@ if __name__ == "__main__":
     else:
         print("Failed to load configuration.")
 
-print("n =", n)
+print("n =", len(xs))
 print("mean_x =", mean_x)
 print("mean_y =", mean_y)
 print("r =", r)
