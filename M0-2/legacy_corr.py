@@ -2,10 +2,29 @@ import yaml  #引入配置
 import csv   #引入数据文件
 import math  #引入数学库
 
-CONFIG_PATH = "config.yaml"
+#定义函数load_config()，用于加载配置文件
+def load_config(config.yaml):
+    try:
+        with open(config.yaml) as f:
+            cfg = yaml.safe_load(f)
+        return cfg    
+    except FileNotFoundError:
+        print("Config file not found.")
+        return None
+   
+#cfg = load_config("config.yaml")
 
-with open(CONFIG_PATH) as f:
-    cfg = yaml.safe_load(f)
+if __name__ == "__main__":
+    # 下面的代码只在直接运行此文件时执行
+    my_config = load_config("config.yaml")
+    if my_config is not None:
+        print("Configuration loaded successfully.")
+    else:
+        print("Failed to load configuration.")
+
+#CONFIG_PATH = "config.yaml"
+#with open(CONFIG_PATH) as f:
+#cfg = yaml.safe_load(f)
 
 csv_path = cfg["input_csv"]
 col_x = cfg["columns"]["x"]
@@ -40,7 +59,7 @@ for i in range(n):
     dx = dx + a * a
     dy = dy + b * b
     prod = prod + a * b
-    
+
 #求r的公式里要开平方，此处修改
 denom = math.sqrt(dx * dy)  
 r = prod / denom
